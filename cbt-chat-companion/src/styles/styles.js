@@ -17,7 +17,7 @@ export const NavbarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  max-width: 100%;
   padding: 10px 20px;
   background-color: ${({ theme }) => (theme === 'light' ? '#f9f9f9' : '#444')};
   border-bottom: 1px solid #ccc;
