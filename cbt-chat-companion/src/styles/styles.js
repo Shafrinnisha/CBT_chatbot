@@ -13,6 +13,29 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
+// Updated Message Bubble styling
+export const MessageBubble = styled.div`
+  max-width: 75%;
+  width: fit-content; // Take only as much space as needed
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  color: ${(props) => props.theme.textColor};
+  background-color: ${(props) =>
+    props.from === 'user' ? props.theme.messageUserBackground : props.theme.messageBotBackground};
+  align-self: ${(props) => (props.from === 'user' ? 'flex-end' : 'flex-start')}; // Align based on sender
+  text-align: ${(props) => (props.from === 'user' ? 'right' : 'left')}; // Align text based on sender
+  white-space: pre-line; // Preserve line breaks
+  margin-left: ${(props) => (props.from === 'user' ? 'auto' : '0')}; // Align user messages from the right
+  margin-right: ${(props) => (props.from === 'user' ? '0' : 'auto')}; // Align companion messages from the left
+`;
+
+// Additional styling for the sender label and message text
+export const MessageText = styled.div`
+  margin-top: 5px;
+  font-size: 1em;
+`;
+
 export const NavbarContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -56,10 +79,13 @@ export const ChatContainer = styled.div`
 
 // Container for the messages
 export const Messages = styled.div`
-  flex: 1; // Allow messages to grow and take available space
-  overflow-y: auto; // Enable scrolling if messages exceed the height
-  padding: 10px; // Padding around the messages
-  margin-bottom: 10px; // Optional: Margin below the messages section
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+  padding-bottom: 80px; // Add space at the bottom to prevent overlap with input box
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 export const InputContainer = styled.div`
