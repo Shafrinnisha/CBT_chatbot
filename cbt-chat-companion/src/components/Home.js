@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import Navbar from './Navbar';
+import About from './About';
 
 const fadeIn = keyframes`
   from { opacity: 0; }
@@ -68,6 +69,7 @@ const Home = () => {
         <StartButton to="/chat">Start Chatting</StartButton>
       </ButtonContainer>
     </HomeContainer>
+    <About />
     </>
   );
 };
