@@ -1,13 +1,18 @@
 import React from 'react';
-import { ThemeProvider } from './context/ThemeContext';
-import { GlobalStyle } from './styles/styles';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+// import Navbar from './components/Navbar';
 import Chatbot from './components/Chatbot';
+import Home from './components/Home';
 
-const App = () => (
-    <ThemeProvider>
-        <GlobalStyle />
-        <Chatbot />
-    </ThemeProvider>
-);
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/chat" element={<Chatbot />} />
+      </Routes>
+    </Router>
+  );
+}
 
 export default App;
