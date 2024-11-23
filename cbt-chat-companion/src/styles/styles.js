@@ -2,8 +2,8 @@ import styled, { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
   body {
-    background-color: ${({ theme }) => (theme === 'light' ? '#ffffff' : '#333333')};
-    color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
+    // background-color: ${({ theme }) => (theme === 'light' ? '#ffffff' : '#333333')};
+    // color: ${({ theme }) => (theme === 'light' ? '#000000' : '#ffffff')};
     transition: all 0.3s ease;
     font-family: Arial, sans-serif;
     margin: 0; // Remove default margin

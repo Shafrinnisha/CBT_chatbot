@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
-import Navbar from './Navbar';
 import About from './About';
 import Footer from './Footer';
 
@@ -15,6 +14,11 @@ const typing = keyframes`
   to { width: 100%; }
 `;
 
+const removeCursor = keyframes`
+  from{border-right: 3px solid #fff;}
+  to{border-right: none;}
+`;
+
 // const blink = keyframes`
 //   from, to { border-color: transparent; }
 //   50% { border-color: #fff; }
@@ -25,9 +29,10 @@ const HomeContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 95vh;
+  height: 100vh;
   text-align: center;
-  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  // background: linear-gradient(135deg, #6a11cb, #2575fc);
+  background: #000;
   color: #fff;
   animation: ${fadeIn} 1.5s ease-in-out;
   overflow: hidden;
@@ -39,14 +44,23 @@ const Title = styled.h1`
   margin: 0;
   color: #fff;
   overflow: hidden;
-  white-space: nowrap;
+  white-space: nowrap; /* Allow wrapping */
   border-right: 3px solid #fff;
-  width: 0;
-  animation: ${typing} 3s steps(30, end) forwards; /* Typing effect only */
+  width: fit-content;
+  animation: ${typing} 3s steps(30, end) , ${removeCursor} 0.1s forwards 3s;;
   animation-fill-mode: forwards;
-  border-right: none; /* Remove the blinking cursor after animation ends */
-`;
 
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    font-size: 2.5em; /* Smaller font size for tablets */
+  }
+
+  @media (max-width: 480px) {
+    font-size: 2em; /* Even smaller font size for mobile devices */
+    // border-right: 2px solid #fff; /* Adjust border size */
+    overflow: normal;
+  }
+`;
 
 const Subtitle = styled.p`
   font-size: 1.2em;
@@ -81,27 +95,27 @@ const StartButton = styled(Link)`
     transform: scale(1.05);
   }
 
-  &:focus {
-    outline: 2px solid #fff;
-  }
+  // &:focus {
+  //   outline: 2px solid #fff;
+  // }
 `;
 
-const ScrollButton = styled.button`
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: transparent;
-  border: 2px solid #fff;
-  color: #fff;
-  border-radius: 20px;
-  font-size: 1em;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+// const ScrollButton = styled.button`
+//   margin-top: 20px;
+//   padding: 10px 20px;
+//   background-color: transparent;
+//   border: 2px solid #fff;
+//   color: #fff;
+//   border-radius: 20px;
+//   font-size: 1em;
+//   cursor: pointer;
+//   transition: background-color 0.3s ease, color 0.3s ease;
 
-  &:hover {
-    background-color: #fff;
-    color: #6a11cb;
-  }
-`;
+//   &:hover {
+//     background-color: #fff;
+//     color: #6a11cb;
+//   }
+// `;
 
 // Samples
 
@@ -169,6 +183,11 @@ const BotBubble = styled(ChatBubble)`
   align-self: flex-end;
 `;
 
+const Logo = styled.img`
+  width: 300px; /* Adjust logo size */
+  margin-bottom: 20px;
+`;
+
 const Samples = () => (
   <SamplesSection>
     <h3>Chatbot Examples</h3>
@@ -218,22 +237,23 @@ const Samples = () => (
 
 
 
-const scrollToAbout = () => {
-  document.getElementById('about-section').scrollIntoView({ behavior: 'smooth' });
-};
+// const scrollToAbout = () => {
+//   document.getElementById('about-section').scrollIntoView({ behavior: 'smooth' });
+// };
 
 const Home = () => {
   return (
     <>
-      <Navbar />
       <HomeContainer>
-        <Title>Welcome to CBT Chat Companion</Title>
+        {/* Logo Section */}
+        <Logo src="/logo.png" alt="CBT Chat Companion Logo" />
+        <Title>Hi, I'm a CBT Chatbot</Title>
         <Subtitle>Your supportive AI companion for Cognitive Behavioral Therapy</Subtitle>
         <ButtonContainer>
           <StartButton to="/chat" aria-label="Start chatting with CBT Companion">
             Start Chatting
           </StartButton>
-          <ScrollButton onClick={scrollToAbout}>Learn More</ScrollButton>
+          {/* <ScrollButton onClick={scrollToAbout}>Learn More</ScrollButton> */}
         </ButtonContainer>
       </HomeContainer>
       <Samples />
