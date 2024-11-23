@@ -3,38 +3,61 @@ import { Link } from 'react-router-dom';
 import styled, { keyframes } from 'styled-components';
 import Navbar from './Navbar';
 import About from './About';
+import Footer from './Footer';
 
 const fadeIn = keyframes`
   from { opacity: 0; }
   to { opacity: 1; }
 `;
 
+const typing = keyframes`
+  from { width: 0; }
+  to { width: 100%; }
+`;
+
+// const blink = keyframes`
+//   from, to { border-color: transparent; }
+//   50% { border-color: #fff; }
+// `;
+
 const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  color: #333;
-  animation: ${fadeIn} 1.5s ease-in-out;
+  height: 95vh;
   text-align: center;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  color: #fff;
+  animation: ${fadeIn} 1.5s ease-in-out;
+  overflow: hidden;
 `;
 
 const Title = styled.h1`
-  font-size: 2.8em;
+  font-size: 3em;
   font-weight: bold;
   margin: 0;
-  color: #926fe8;
-//   text-shadow: 2px 2px 5px rgba(255, 255, 255, 0.6); /* White shadow effect */
+  color: #fff;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #fff;
+  width: 0;
+  animation: ${typing} 3s steps(30, end) forwards; /* Typing effect only */
+  animation-fill-mode: forwards;
+  border-right: none; /* Remove the blinking cursor after animation ends */
 `;
+
 
 const Subtitle = styled.p`
   font-size: 1.2em;
-  margin-top: 10px;
+  margin-top: 20px;
   max-width: 80%;
   line-height: 1.6;
-  color: #fff ;  // #6f6fe8
-//   text-shadow: 0px 1px 3px rgba(255, 255, 255, 0.6); /* White shadow effect */
+  color: #e0e0e0;
+
+  @media (max-width: 768px) {
+    font-size: 1em;
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -50,26 +73,174 @@ const StartButton = styled(Link)`
   text-decoration: none;
   transition: background-color 0.3s ease, transform 0.3s ease;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  display: inline-block;
 
   &:hover {
     background-color: #00a572;
     transform: scale(1.05);
   }
+
+  &:focus {
+    outline: 2px solid #fff;
+  }
 `;
+
+const ScrollButton = styled.button`
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  border-radius: 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: #fff;
+    color: #6a11cb;
+  }
+`;
+
+// Samples
+
+const SamplesSection = styled.div`
+  // margin: 50px 0;
+  // width: 90%;
+  max-width: 100%;
+  background-color: #f9f9f9;
+  // border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  color: #333;
+  overflow: hidden;
+`;
+
+const SliderContainer = styled.div`
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 10px;
+
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #926fe8;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #f0f0f0;
+  }
+`;
+
+const Slide = styled.div`
+  min-width: 300px;
+  max-width: 300px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  flex: none;
+`;
+
+const ChatBubble = styled.div`
+  margin: 10px 0;
+  padding: 10px 15px;
+  border-radius: 15px;
+  display: inline-block;
+  max-width: 100%;
+  font-size: 1em;
+  line-height: 1.5;
+`;
+
+const UserBubble = styled(ChatBubble)`
+  background-color: #00b894;
+  color: #fff;
+  align-self: flex-start;
+  width: 70%;
+`;
+
+const BotBubble = styled(ChatBubble)`
+  background-color: #926fe8;
+  color: #fff;
+  align-self: flex-end;
+`;
+
+const Samples = () => (
+  <SamplesSection>
+    <h3>Chatbot Examples</h3>
+    <SliderContainer>
+      {/* Slide 1 */}
+      <Slide>
+        <UserBubble>I'm feeling overwhelmed with work.</UserBubble>
+        <BotBubble>
+          I hear you. Let’s break it into smaller tasks. Can you list your top priorities?
+        </BotBubble>
+      </Slide>
+
+      {/* Slide 2 */}
+      <Slide>
+        <UserBubble>I feel stuck in negative thinking patterns.</UserBubble>
+        <BotBubble>
+          Let’s try identifying those thoughts. Can you share one recurring negative thought?
+        </BotBubble>
+      </Slide>
+
+      {/* Slide 3 */}
+      <Slide>
+        <UserBubble>How can I practice mindfulness daily?</UserBubble>
+        <BotBubble>
+          A great way to start is by setting aside 5 minutes to focus on your breathing. Want to try it now?
+        </BotBubble>
+      </Slide>
+
+      {/* Slide 3 */}
+      <Slide>
+        <UserBubble>How can I practice mindfulness daily?</UserBubble>
+        <BotBubble>
+          A great way to start is by setting aside 5 minutes to focus on your breathing. Want to try it now?
+        </BotBubble>
+      </Slide>
+
+      {/* Slide 3 */}
+      <Slide>
+        <UserBubble>How can I practice mindfulness daily?</UserBubble>
+        <BotBubble>
+          A great way to start is by setting aside 5 minutes to focus on your breathing. Want to try it now?
+        </BotBubble>
+      </Slide>
+    </SliderContainer>
+  </SamplesSection>
+);
+
+
+
+const scrollToAbout = () => {
+  document.getElementById('about-section').scrollIntoView({ behavior: 'smooth' });
+};
 
 const Home = () => {
   return (
     <>
-    <Navbar />
-    <HomeContainer>
-            
-      <Title>Welcome to CBT Chat Companion</Title>
-      <Subtitle>Your supportive AI companion for Cognitive Behavioral Therapy</Subtitle>
-      <ButtonContainer>
-        <StartButton to="/chat">Start Chatting</StartButton>
-      </ButtonContainer>
-    </HomeContainer>
-    <About />
+      <Navbar />
+      <HomeContainer>
+        <Title>Welcome to CBT Chat Companion</Title>
+        <Subtitle>Your supportive AI companion for Cognitive Behavioral Therapy</Subtitle>
+        <ButtonContainer>
+          <StartButton to="/chat" aria-label="Start chatting with CBT Companion">
+            Start Chatting
+          </StartButton>
+          <ScrollButton onClick={scrollToAbout}>Learn More</ScrollButton>
+        </ButtonContainer>
+      </HomeContainer>
+      <Samples />
+      <div id="about-section">
+        <About />
+      </div>
+      <Footer />
     </>
   );
 };
