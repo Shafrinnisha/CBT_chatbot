@@ -3,67 +3,15 @@ import { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from '../styles/theme';
 import { 
     GlobalStyle, 
-    // Messages, 
-    // ChatContainer, 
-    // InputContainer, 
-    // Input, 
-    // SendButton
+    Messages, 
+    ChatContainer, 
+    InputContainer, 
+    Input, 
+    SendButton
 } from '../styles/styles';
 import Message from './Message';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-
-export const ChatContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 100vh;
-    background-color: ${({ theme }) => theme.background};
-    color: ${({ theme }) => theme.textColor};
-`;
-
-export const Messages = styled.div`
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px;
-    background-color: ${({ theme }) => theme.background};
-`;
-
-export const InputContainer = styled.div`
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    background-color: ${({ theme }) => theme.background};
-    // border-top: 1px solid ${({ theme }) => theme.messageUserBackground};
-`;
-
-export const Input = styled.input`
-    flex: 1;
-    padding: 10px;
-    font-size: 16px;
-    border: 1px solid ${({ theme }) => theme.textColor};
-    border-radius: 5px;
-    background-color: ${({ theme }) => theme.inputBackground};
-    color: ${({ theme }) => theme.textColor};
-    margin-right: 10px;
-
-    &::placeholder {
-        color: ${({ theme }) => theme.textColor};
-    }
-`;
-
-export const SendButton = styled.button`
-    padding: 10px 15px;
-    background-color: #04AA6D;
-    color: #fff ; 
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-
-    &:hover {
-        background-color: #00b894;
-    }
-`;
 
 export const NavbarContainer = styled.div`
     display: flex;
@@ -93,18 +41,26 @@ const Chatbot = () => {
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const [theme, setTheme] = useState(lightTheme);
+    const [loading, setLoading] = useState(false); // New loading state
     const messagesEndRef = useRef(null);
 
-    const handleSendMessage = () => {
+    const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)); // Sleep function
+
+    const handleSendMessage = async () => {
         if (input.trim() === '') return;
+
         setMessages([...messages, { text: input, from: 'user' }]);
-        setTimeout(() => {
-            setMessages((prevMessages) => [
-                ...prevMessages,
-                { text: 'Chatbot response to: ' + input, from: 'bot' },
-            ]);
-        }, 1000);
         setInput('');
+        setLoading(true); // Set loading to true when bot starts "thinking"
+
+        // Simulate bot thinking
+        await sleep(1000);
+
+        setMessages((prevMessages) => [
+            ...prevMessages,
+            { text: 'Chatbot response to: ' + input, from: 'bot' },
+        ]);
+        setLoading(false); // Set loading to false after bot responds
     };
 
     const handleKeyPress = (event) => {
@@ -123,7 +79,7 @@ const Chatbot = () => {
 
     useEffect(() => {
         scrollToBottom();
-    }, [messages]);
+    }, [messages, loading]);
 
     return (
         <ThemeProvider theme={theme}>
@@ -144,6 +100,11 @@ const Chatbot = () => {
                     {messages.map((msg, index) => (
                         <Message key={index} text={msg.text} from={msg.from} theme={theme} />
                     ))}
+                    {loading && (
+                        <div style={{ color: theme.textColor, fontStyle: 'italic' }}>
+                            Bot is typing...
+                        </div>
+                    )}
                     <div ref={messagesEndRef} /> {/* Scroll to bottom reference */}
                 </Messages>
 

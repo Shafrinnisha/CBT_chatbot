@@ -100,23 +100,6 @@ const StartButton = styled(Link)`
   // }
 `;
 
-// const ScrollButton = styled.button`
-//   margin-top: 20px;
-//   padding: 10px 20px;
-//   background-color: transparent;
-//   border: 2px solid #fff;
-//   color: #fff;
-//   border-radius: 20px;
-//   font-size: 1em;
-//   cursor: pointer;
-//   transition: background-color 0.3s ease, color 0.3s ease;
-
-//   &:hover {
-//     background-color: #fff;
-//     color: #6a11cb;
-//   }
-// `;
-
 // Samples
 
 const SamplesSection = styled.div`

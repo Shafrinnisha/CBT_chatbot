@@ -1,61 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const AboutSection = styled.section`
-  padding: 50px 20px;
-  background-color: #f9f9f9;
-  color: #333;
-  text-align: center;
-`;
-
-const AboutTitle = styled.h2`
-  font-size: 2.5em;
-  margin-bottom: 20px;
-  color: #6a11cb;
-`;
-
-const AboutText = styled.p`
-  font-size: 1.2em;
-  line-height: 1.6;
-  max-width: 800px;
-  margin: 0 auto 20px;
-  color: #555;
-`;
-
-const FeaturesList = styled.ul`
-  list-style-type: none;
-  padding: 0;
-  
-`;
-
-const FeatureItem = styled.li`
-  line-height: 1.6;
-  font-size: 1.2em;
-  margin: 10px 0;
-  color: #333;
-  padding-left: 20px;
-  text-align: left;
-  position: relative;
-
-  &:before {
-    content: '✔';
-    position: absolute;
-    left: 0;
-    color: #00b894;
-  }
-`;
-
-const DiagramSection = styled.section`
-  margin: 50px 0;
-  text-align: center;
-`;
-
-const DiagramImage = styled.img`
-  max-width: 100%;
-  height: auto;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-`;
+import { AboutSection, AboutTitle, AboutText,
+    FeaturesList, FeatureItem,
+    DiagramSection, DiagramImage      
+} from '../styles/styles'
 
 const About = () => (
   <AboutSection>
@@ -85,7 +32,7 @@ const About = () => (
 
     <DiagramSection>
       <h3>How CBT Works</h3>
-      <DiagramImage src="/images/cbt_diagram.png" alt="How CBT Works Diagram" />
+      <DiagramImage src="/CBT.png" alt="How CBT Works Diagram" />
     </DiagramSection>
   </AboutSection>
 );
